@@ -30,20 +30,20 @@ int main()
 
     while(1) 	//Agregar if con los valores que le paso por Bluetooth para determinar que hago
 	{
-		if((info[0] == '0'))											//Se hace referencia al boton agarrar
+		if((info[0] == '0'))											//Se verifica si se pulso el botón AGARRAR
 		{
 			agarrar();													//Se llama a la funcion void agarrar()
 		}
-		else if(info[0] == '1')											//Se hace referencia al boton soltar
+		else if(info[0] == '1')											//Se verifica si se pulso el botón SOLTAR
 		{
 			soltar();													//Se llama a la funcion void soltar()
 			centrar();													//Se llama a la funcion void centrar()
 		}
-		else if(info[0] == '2')											//Se hace referencia al boton derecha
+		else if(info[0] == '2')											//Se verifica si se pulso el botón IZQUIERDA
 		{
 			izquierda();
 		}
-		else if(info[0] == '3')											//Se hace referencia al boton izquierda
+		else if(info[0] == '3')											//Se verifica si se pulso el botón DERECHA
 		{
 			derecha();													//Se llama a la funcion void derecha()
 		}
