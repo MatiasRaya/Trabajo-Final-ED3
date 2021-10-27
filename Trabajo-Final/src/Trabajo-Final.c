@@ -32,12 +32,12 @@ int main()
 	{
 		if((info[0] == '0'))											//Se hace referencia al boton agarrar
 		{
-			agarrar();
+			agarrar();													//Se llama a la funcion void agarrar()
 		}
 		else if(info[0] == '1')											//Se hace referencia al boton soltar
 		{
-			soltar();
-			centrar();
+			soltar();													//Se llama a la funcion void soltar()
+			centrar();													//Se llama a la funcion void centrar()
 		}
 		else if(info[0] == '2')											//Se hace referencia al boton derecha
 		{
@@ -45,7 +45,7 @@ int main()
 		}
 		else if(info[0] == '3')											//Se hace referencia al boton izquierda
 		{
-			derecha();
+			derecha();													//Se llama a la funcion void derecha()
 		}
 	}
 
@@ -206,7 +206,7 @@ void configEXTINT()
 
 void EINT0_IRQHandler()
 {
-	agarrar();															//Se llama a la funcion agarrar
+	agarrar();															//Se llama a la funcion void agarrar()
 
 	EXTI_ClearEXTIFlag(EXTI_EINT0);										//Se limpia el flag de interrupcion de EINT0
 
@@ -215,7 +215,8 @@ void EINT0_IRQHandler()
 
 void EINT1_IRQHandler()
 {
-	soltar();															//Se llama a la funcion soltar
+	soltar();															//Se llama a la funcion void soltar()
+	centrar();															//Se llama a la funcion void centrar()
 
 	EXTI_ClearEXTIFlag(EXTI_EINT1);										//Se limpia el flag de interrupcion de EINT1
 
@@ -224,7 +225,7 @@ void EINT1_IRQHandler()
 
 void EINT2_IRQHandler()
 {
-	derecha();															//Se llama a la funcion derecha
+	derecha();															//Se llama a la funcion void derecha()
 
 	EXTI_ClearEXTIFlag(EXTI_EINT2);										//Se limpia el flag de interrupcion de EINT2
 
@@ -233,7 +234,7 @@ void EINT2_IRQHandler()
 
 void EINT3_IRQHandler()
 {
-	izquierda();														//Se llama a la funcion izquierda
+	izquierda();														//Se llama a la funcion void izquierda()
 
 	EXTI_ClearEXTIFlag(EXTI_EINT3);										//Se limpia el flag de interrupcion de EINT3
 
@@ -243,20 +244,75 @@ void EINT3_IRQHandler()
 //Configuro las funciones adicionales
 void agarrar()
 {
-	
+	matchMotor2 = 0;													//Se indica el valor para el MATCH del motor 2
+	matchMotor3 = 0;													//Se indica el valor para el MATCH del motor 3
+	matchMotor4 = 0;													//Se indica el valor para el MATCH del motor 4
+	//No se instancia el motor 1 ya que este no presenta movimiento en esta funcion
+
+	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al motor 2
+	PWM_MatchUpdate(LPC_PWM1,3,matchMotor3,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH3, el cual corresponde al motor 3
+	PWM_MatchUpdate(LPC_PWM1,4,matchMotor4,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH4, el cual corresponde al motor 4
+	//No se instancia el MATCH1 del motor 1 ya que este no presenta movimiento en esta funcion
+
+	return;
 }
 
 void soltar()
 {
+	matchMotor2 = 0;													//Se indica el valor para el MATCH del motor 2
+	matchMotor3 = 0;													//Se indica el valor para el MATCH del motor 3
+	matchMotor4 = 0;													//Se indica el valor para el MATCH del motor 4
+	//No se instancia el motor 1 ya que este no presenta movimiento en esta funcion
 
+	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al motor 2
+	PWM_MatchUpdate(LPC_PWM1,3,matchMotor3,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH3, el cual corresponde al motor 3
+	PWM_MatchUpdate(LPC_PWM1,4,matchMotor4,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH4, el cual corresponde al motor 4
+	//No se instancia el MATCH1 del motor 1 ya que este no presenta movimiento en esta funcion
+
+	return;
+}
+
+void centrar()
+{
+	matchMotor1 = 0;													//Se indica el valor para el MATCH del motor 1
+	matchMotor2 = 0;													//Se indica el valor para el MATCH del motor 2
+	matchMotor3 = 0;													//Se indica el valor para el MATCH del motor 3
+	matchMotor4 = 0;													//Se indica el valor para el MATCH del motor 4
+
+	PWM_MatchUpdate(LPC_PWM1,1,matchMotor1,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH1, el cual corresponde al motor 1
+	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al motor 2
+	PWM_MatchUpdate(LPC_PWM1,3,matchMotor3,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH3, el cual corresponde al motor 3
+	PWM_MatchUpdate(LPC_PWM1,4,matchMotor4,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH4, el cual corresponde al motor 4
+
+	return;
 }
 
 void derecha()
 {
+	matchMotor1 = 0;													//Se indica el valor para el MATCH del motor 1
+	matchMotor2 = 0;													//Se indica el valor para el MATCH del motor 2
+	matchMotor3 = 0;													//Se indica el valor para el MATCH del motor 3
+	matchMotor4 = 0;													//Se indica el valor para el MATCH del motor 4
 
+	PWM_MatchUpdate(LPC_PWM1,1,matchMotor1,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH1, el cual corresponde al motor 1
+	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al motor 2
+	PWM_MatchUpdate(LPC_PWM1,3,matchMotor3,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH3, el cual corresponde al motor 3
+	PWM_MatchUpdate(LPC_PWM1,4,matchMotor4,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH4, el cual corresponde al motor 4
+
+	return;
 }
 
 void izquierda()
 {
+	matchMotor1 = 0;													//Se indica el valor para el MATCH del motor 1
+	matchMotor2 = 0;													//Se indica el valor para el MATCH del motor 2
+	matchMotor3 = 0;													//Se indica el valor para el MATCH del motor 3
+	matchMotor4 = 0;													//Se indica el valor para el MATCH del motor 4
 
+	PWM_MatchUpdate(LPC_PWM1,1,matchMotor1,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH1, el cual corresponde al motor 1
+	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al motor 2
+	PWM_MatchUpdate(LPC_PWM1,3,matchMotor3,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH3, el cual corresponde al motor 3
+	PWM_MatchUpdate(LPC_PWM1,4,matchMotor4,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH4, el cual corresponde al motor 4
+
+	return;
 }
