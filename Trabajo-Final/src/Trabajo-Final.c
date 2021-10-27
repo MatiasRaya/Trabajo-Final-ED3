@@ -13,11 +13,13 @@ void configPWM();
 void configEXTINT();
 
 void agarrar();
-void soltar(); //Debe soltar y volver a la posicion inicial (aarba de la cinta principal)
+void soltar();
+void centrar(); //Esta funcion no tiene un pulsador
 void derecha();
 void izquierda();
 
 uint8_t info[]= "";
+uint8_t matchMotor1, matchMotor2, matchMotor3, matchMotor4; //Valores que se deben cargar para hacer el match de cada motor
 
 int main()
 {
@@ -26,7 +28,26 @@ int main()
 	configPWM();
 	configEXTINT();
 
-    while(1){}	//Agregar if con los valores que le paso por Bluetooth para determinar que hago
+    while(1) 	//Agregar if con los valores que le paso por Bluetooth para determinar que hago
+	{
+		if((info[0] == '0'))											//Se hace referencia al boton agarrar
+		{
+			agarrar();
+		}
+		else if(info[0] == '1')											//Se hace referencia al boton soltar
+		{
+			soltar();
+			centrar();
+		}
+		else if(info[0] == '2')											//Se hace referencia al boton derecha
+		{
+			izquierda();
+		}
+		else if(info[0] == '3')											//Se hace referencia al boton izquierda
+		{
+			derecha();
+		}
+	}
 
     return 0;
 }
@@ -237,5 +258,5 @@ void derecha()
 
 void izquierda()
 {
-	
+
 }
