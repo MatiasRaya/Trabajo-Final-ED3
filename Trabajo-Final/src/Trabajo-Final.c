@@ -82,7 +82,7 @@ void configPin()
 	PINSEL_ConfigPin(&PinCfg);                                          //Se pasa PinCfg para el puerto P2.3
 
 	//Configuramos EXTINT
-	PinCfg.Funcnum = 0;                                                 //Se selecciona la primera funcion del pin
+	PinCfg.Funcnum = 1;                                                 //Se selecciona la segunda funcion del pin
 	PinCfg.OpenDrain = PINSEL_PINMODE_NORMAL;                           //Se selecciona el modo normal del pin, el drenador esta cerrado
 	PinCfg.Pinmode = PINSEL_PINMODE_PULLUP;                             //Se selecciona la resistencia pull-up del pin
 	PinCfg.Pinnum = 10;                                                 //Se selecciona el pin a usar
@@ -108,7 +108,6 @@ void configUART()
 	UART_Init(LPC_UART0,&UARTConfigStrut);								//Se inicializa el periférico
 	UART_FIFOConfigStructInit(&UARTFIFOConfigStruct);					//Se configura la FIFO por defecto
 	UART_FIFOConfig(LPC_UART0,&UARTFIFOConfigStruct);					//Se inicializa la FIFO
-	//UART_TxCmd(LPC_UART0, ENABLE);									//Se habilita la transmision serie
 	UART_IntConfig(LPC_UART0,UART_INTCFG_RBR,ENABLE);					//Se habilita la interrupcion por el RX del UART
 	UART_IntConfig(LPC_UART0,UART_INTCFG_RLS,ENABLE);					//Se habilita la interrupcion por el estado de la linea de recpcion de UART0
 
