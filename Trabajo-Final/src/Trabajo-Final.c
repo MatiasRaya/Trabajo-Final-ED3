@@ -296,13 +296,13 @@ void centrar()
 void derecha()
 {
 	matchMotor1 = 0;													//Se indica el valor para el MATCH del servo 1
-	matchMotor2 = 0;													//Se indica el valor para el MATCH del servo 2
-	matchMotor3 = 0;													//Se indica el valor para el MATCH del servo 3
+	//No se instancia el servo 2 ya que este no presenta movimiento en esta funcion
+	//No se instancia el servo 3 ya que este no presenta movimiento en esta funcion
 	//No se instancia el servo 4 ya que este no presenta movimiento en esta funcion
 
 	PWM_MatchUpdate(LPC_PWM1,1,matchMotor1,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH1, el cual corresponde al servo 1
-	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al servo 2
-	PWM_MatchUpdate(LPC_PWM1,3,matchMotor3,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH3, el cual corresponde al servo 3
+	//No se instancia el MATCH2 del servo 2 ya que este no presenta movimiento en esta funcion
+	//No se instancia el MATCH3 del servo 3 ya que este no presenta movimiento en esta funcion
 	//No se instancia el MATCH4 del servo 4 ya que este no presenta movimiento en esta funcion
 
 	return;
@@ -311,13 +311,13 @@ void derecha()
 void izquierda()
 {
 	matchMotor1 = 0;													//Se indica el valor para el MATCH del servo 1
-	matchMotor2 = 0;													//Se indica el valor para el MATCH del servo 2
-	matchMotor3 = 0;													//Se indica el valor para el MATCH del servo 3
+	//No se instancia el servo 2 ya que este no presenta movimiento en esta funcion
+	//No se instancia el servo 3 ya que este no presenta movimiento en esta funcion
 	//No se instancia el servo 4 ya que este no presenta movimiento en esta funcion
 
 	PWM_MatchUpdate(LPC_PWM1,1,matchMotor1,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH1, el cual corresponde al servo 1
-	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al servo 2
-	PWM_MatchUpdate(LPC_PWM1,3,matchMotor3,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH3, el cual corresponde al servo 3
+	//No se instancia el MATCH2 del servo 2 ya que este no presenta movimiento en esta funcion
+	//No se instancia el MATCH3 del servo 3 ya que este no presenta movimiento en esta funcion
 	//No se instancia el MATCH4 del servo 4 ya que este no presenta movimiento en esta funcion
 
 	return;
