@@ -1,3 +1,4 @@
+//Libreria de configuracion de la LPC1769
 #include "LPC17xx.h"
 
 //Librerias de drivers
@@ -33,7 +34,7 @@ int main()
 	configPWM();														//Se llama a la funcion void configPWM() para configurar el control PWM de los servos
 	configEXTINT();														//Se llama a la funcion void configEXTINT() para configurar las interrupciones provocadas por los pulsadores
 
-	centrar();															//Se llama a la funcion void centrar() por unica vez al comenzar el programa
+	centrar();															//Se llama a la funcion void centrar() por unica vez al comenzar el programa, para reacomodar el brazo por si no quedo bien posicionado
 
     while(1) 
 	{
