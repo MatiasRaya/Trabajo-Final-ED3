@@ -15,45 +15,52 @@ void configUART();
 void configPWM();
 void configEXTINT();
 
+//Funcion de delay
+void delay();
+
 //Funciones de los movimientos que realiza el brazo
 void agarrar();
 void soltar();
-void centrar();
 void derecha();
 void izquierda();
+void centrar2();
+void centrar3();
 
 //Variables globales
 uint8_t info[] = "";													//Se declara una variable para almacenar el valor recibido por UART
-uint32_t matchMotor1, matchMotor2, matchMotor3, matchMotor4; 			//Se decalran las variables en las que vamos a cargar un valor para hacer MATCH para cada servo
+uint32_t matchMotor1 = 0, matchMotor2 = 0, matchMotor3 = 0, matchMotor4 = 0;//Se decalran las variables en las que vamos a cargar un valor para hacer MATCH para cada servo
 
 //Programa principal
 int main()
 {
+	centrar3();															//Se llama a la funcion void centrar3() por unica vez al comenzar el programa, para reacomodar el brazo por si no quedo bien posicionado
+
     configPin();														//Se llama a la funcion void configPin() para setear las funciones de cada pin
     configUART();														//Se llama a la funcion void configUART() para configurar la comunicacion UART
 	configPWM();														//Se llama a la funcion void configPWM() para configurar el control PWM de los servos
 	configEXTINT();														//Se llama a la funcion void configEXTINT() para configurar las interrupciones provocadas por los pulsadores
-
-	centrar();															//Se llama a la funcion void centrar() por unica vez al comenzar el programa, para reacomodar el brazo por si no quedo bien posicionado
 
     while(1) 
 	{
 		if((info[0] == '0'))											//Se verifica si se pulso el botón AGARRAR
 		{
 			agarrar();													//Se llama a la funcion void agarrar()
+			centrar2();													//Se llama a la funcion void centrar2()
 		}
 		else if(info[0] == '1')											//Se verifica si se pulso el botón SOLTAR
 		{
 			soltar();													//Se llama a la funcion void soltar()
-			centrar();													//Se llama a la funcion void centrar()
+			centrar3();													//Se llama a la funcion void centrar3()
 		}
 		else if(info[0] == '2')											//Se verifica si se pulso el botón IZQUIERDA
 		{
-			izquierda();
+			izquierda();												//Se llama a la funcion void izquierda()
+			centrar2();													//Se llama a la funcion void centrar2()
 		}
 		else if(info[0] == '3')											//Se verifica si se pulso el botón DERECHA
 		{
 			derecha();													//Se llama a la funcion void derecha()
+			centrar2();													//Se llama a la funcion void centrar2()
 		}
 	}
 
@@ -214,6 +221,7 @@ void configEXTINT()
 void EINT0_IRQHandler()
 {
 	agarrar();															//Se llama a la funcion void agarrar()
+	centrar2();															//Se llama a la funcion void centrar2()
 
 	EXTI_ClearEXTIFlag(EXTI_EINT0);										//Se limpia el flag de interrupcion de EINT0
 
@@ -223,7 +231,7 @@ void EINT0_IRQHandler()
 void EINT1_IRQHandler()
 {
 	soltar();															//Se llama a la funcion void soltar()
-	centrar();															//Se llama a la funcion void centrar()
+	centrar3();															//Se llama a la funcion void centrar3()
 
 	EXTI_ClearEXTIFlag(EXTI_EINT1);										//Se limpia el flag de interrupcion de EINT1
 
@@ -233,6 +241,7 @@ void EINT1_IRQHandler()
 void EINT2_IRQHandler()
 {
 	derecha();															//Se llama a la funcion void derecha()
+	centrar2();															//Se llama a la funcion void centrar2()
 
 	EXTI_ClearEXTIFlag(EXTI_EINT2);										//Se limpia el flag de interrupcion de EINT2
 
@@ -242,6 +251,7 @@ void EINT2_IRQHandler()
 void EINT3_IRQHandler()
 {
 	izquierda();														//Se llama a la funcion void izquierda()
+	centrar2();															//Se llama a la funcion void centrar2()
 
 	EXTI_ClearEXTIFlag(EXTI_EINT3);										//Se limpia el flag de interrupcion de EINT3
 
@@ -251,14 +261,17 @@ void EINT3_IRQHandler()
 //Configuro las funciones adicionales
 void agarrar()
 {
-	matchMotor2 = 0;													//Se indica el valor para el MATCH2 del servo 2
-	matchMotor3 = 0;													//Se indica el valor para el MATCH3 del servo 3
-	matchMotor4 = 0;													//Se indica el valor para el MATCH4 del servo 4
+	matchMotor2 = 200;													//Se indica el valor para el MATCH2 del servo 2
+	matchMotor3 = 1250;													//Se indica el valor para el MATCH3 del servo 3
+	matchMotor4 = 400;													//Se indica el valor para el MATCH4 del servo 4
 	//No se instancia el servo 1 ya que este no presenta movimiento en esta funcion
 
-	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al servo 2
 	PWM_MatchUpdate(LPC_PWM1,3,matchMotor3,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH3, el cual corresponde al servo 3
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
+	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al servo 2
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
 	PWM_MatchUpdate(LPC_PWM1,4,matchMotor4,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH4, el cual corresponde al servo 4
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
 	//No se instancia el MATCH1 del servo 1 ya que este no presenta movimiento en esta funcion
 
 	return;
@@ -266,42 +279,31 @@ void agarrar()
 
 void soltar()
 {
-	matchMotor2 = 0;													//Se indica el valor para el MATCH2 del servo 2
-	matchMotor3 = 0;													//Se indica el valor para el MATCH3 del servo 3
-	matchMotor4 = 0;													//Se indica el valor para el MATCH4 del servo 4
+	matchMotor2 = 200;													//Se indica el valor para el MATCH2 del servo 2
+	matchMotor3 = 1250;													//Se indica el valor para el MATCH3 del servo 3
+	matchMotor4 = 800;													//Se indica el valor para el MATCH4 del servo 4
 	//No se instancia el servo 1 ya que este no presenta movimiento en esta funcion
 
-	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al servo 2
 	PWM_MatchUpdate(LPC_PWM1,3,matchMotor3,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH3, el cual corresponde al servo 3
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
+	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al servo 2
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
 	PWM_MatchUpdate(LPC_PWM1,4,matchMotor4,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH4, el cual corresponde al servo 4
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
 	//No se instancia el MATCH1 del servo 1 ya que este no presenta movimiento en esta funcion
-
-	return;
-}
-
-void centrar()
-{
-	matchMotor1 = 700;													//Se indica el valor para el MATCH1 del servo 1
-	matchMotor2 = 700;													//Se indica el valor para el MATCH2 del servo 2
-	matchMotor4 = 700;													//Se indica el valor para el MATCH3 del servo 4
-	matchMotor3 = 700;													//Se indica el valor para el MATCH4 del servo 3
-
-	PWM_MatchUpdate(LPC_PWM1,1,matchMotor1,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH1, el cual corresponde al servo 1
-	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al servo 2
-	PWM_MatchUpdate(LPC_PWM1,3,matchMotor3,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH3, el cual corresponde al servo 3
-	PWM_MatchUpdate(LPC_PWM1,4,matchMotor4,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH4, el cual corresponde al servo 4
 
 	return;
 }
 
 void derecha()
 {
-	matchMotor1 = 0;													//Se indica el valor para el MATCH1 del servo 1
+	matchMotor1 = 2300;													//Se indica el valor para el MATCH1 del servo 1
 	//No se instancia el servo 2 ya que este no presenta movimiento en esta funcion
 	//No se instancia el servo 3 ya que este no presenta movimiento en esta funcion
 	//No se instancia el servo 4 ya que este no presenta movimiento en esta funcion
 
 	PWM_MatchUpdate(LPC_PWM1,1,matchMotor1,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH1, el cual corresponde al servo 1
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
 	//No se instancia el MATCH2 del servo 2 ya que este no presenta movimiento en esta funcion
 	//No se instancia el MATCH3 del servo 3 ya que este no presenta movimiento en esta funcion
 	//No se instancia el MATCH4 del servo 4 ya que este no presenta movimiento en esta funcion
@@ -311,15 +313,57 @@ void derecha()
 
 void izquierda()
 {
-	matchMotor1 = 0;													//Se indica el valor para el MATCH1 del servo 1
+	matchMotor1 = 900;													//Se indica el valor para el MATCH1 del servo 1
 	//No se instancia el servo 2 ya que este no presenta movimiento en esta funcion
 	//No se instancia el servo 3 ya que este no presenta movimiento en esta funcion
 	//No se instancia el servo 4 ya que este no presenta movimiento en esta funcion
 
 	PWM_MatchUpdate(LPC_PWM1,1,matchMotor1,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH1, el cual corresponde al servo 1
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
 	//No se instancia el MATCH2 del servo 2 ya que este no presenta movimiento en esta funcion
 	//No se instancia el MATCH3 del servo 3 ya que este no presenta movimiento en esta funcion
 	//No se instancia el MATCH4 del servo 4 ya que este no presenta movimiento en esta funcion
 
 	return;
+}
+
+void centrar2()
+{
+	matchMotor2 = 400;													//Se indica el valor para el MATCH2 del servo 2
+	matchMotor3 = 700;													//Se indica el valor para el MATCH4 del servo 3
+	//No se instancia el servo 1 ya que este no presenta movimiento en esta funcion
+	//No se instancia el servo 4 ya que este no presenta movimiento en esta funcion
+
+	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al servo 2
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
+	PWM_MatchUpdate(LPC_PWM1,3,matchMotor3,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH3, el cual corresponde al servo 3
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
+	//No se instancia el MATCH1 del servo 1 ya que este no presenta movimiento en esta funcion
+	//No se instancia el MATCH4 del servo 4 ya que este no presenta movimiento en esta funcion
+
+	return;
+}
+
+void centrar3()
+{
+	matchMotor1 = 1600;													//Se indica el valor para el MATCH1 del servo 1
+	matchMotor2 = 400;													//Se indica el valor para el MATCH2 del servo 2
+	matchMotor3 = 700;													//Se indica el valor para el MATCH3 del servo 3
+	matchMotor4 = 800;													//Se indica el valor para el MATCH4 del servo 4
+
+	PWM_MatchUpdate(LPC_PWM1,1,matchMotor1,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH1, el cual corresponde al servo 1
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
+	PWM_MatchUpdate(LPC_PWM1,2,matchMotor2,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH2, el cual corresponde al servo 2
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
+	PWM_MatchUpdate(LPC_PWM1,3,matchMotor3,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH3, el cual corresponde al servo 3
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
+	PWM_MatchUpdate(LPC_PWM1,4,matchMotor4,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH4, el cual corresponde al servo 4
+	delay();															//Se inserta un delay para demorar el movimiento entre un servo y otro
+
+	return;
+}
+
+void delay()
+{
+	for(int i = 0; i < 5000000; i++){}									//Se realiza un delay usando un ciclo for
 }
