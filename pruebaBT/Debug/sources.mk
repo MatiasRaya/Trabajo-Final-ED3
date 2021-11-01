@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ################################################################################
 # Automatically-generated file. Do not edit!
 ################################################################################
@@ -17,23 +16,3 @@ C_DEPS :=
 SUBDIRS := \
 src \
 
-=======
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
-
-OBJ_SRCS := 
-S_SRCS := 
-ASM_SRCS := 
-C_SRCS := 
-S_UPPER_SRCS := 
-O_SRCS := 
-EXECUTABLES := 
-OBJS := 
-C_DEPS := 
-
-# Every subdirectory with source files must be described here
-SUBDIRS := \
-src \
-
->>>>>>> 0452199 (Correccion de error en recepcion y agregado de transmision)

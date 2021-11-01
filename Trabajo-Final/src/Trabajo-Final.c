@@ -57,6 +57,7 @@ int main()
 				centrar3();												//Se llama a la funcion void centrar3()
 				contador = 0;											//Se setea en 0 la varible que indica ingreso previo
 			}
+			info[0] = "";
 		}
 		else if(info[0] == '1')											//Se verifica si se pulso el botón SOLTAR
 		{
@@ -139,6 +140,7 @@ void configUART()
 	UART_IntConfig(LPC_UART0,UART_INTCFG_RLS,ENABLE);					//Se habilita la interrupcion por el estado de la linea de recpcion de UART0
 
 	NVIC_EnableIRQ(UART0_IRQn);											//Se habilita el vector de interrupcion UART0_IRQn
+	
 	return;
 }
 
