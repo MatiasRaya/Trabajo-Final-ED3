@@ -62,6 +62,7 @@ int main()
 		{
 			soltar();													//Se llama a la funcion void soltar()
 			centrar3();													//Se llama a la funcion void centrar3()
+			contador = 0;												//Se setea en 0 la varible que indica ingreso previo
 		}
 		else if(info[0] == '2')											//Se verifica si se pulso el botón IZQUIERDA
 		{
@@ -253,6 +254,7 @@ void EINT1_IRQHandler()
 {
 	soltar();															//Se llama a la funcion void soltar()
 	centrar3();															//Se llama a la funcion void centrar3()
+	contador = 0;														//Se setea en 0 la varible que indica ingreso previo
 
 	EXTI_ClearEXTIFlag(EXTI_EINT1);										//Se limpia el flag de interrupcion de EINT1
 
