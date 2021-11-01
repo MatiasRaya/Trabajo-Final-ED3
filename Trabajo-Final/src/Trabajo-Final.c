@@ -28,7 +28,8 @@ void centrar3();
 
 //Variables globales
 uint8_t info[] = "";													//Se declara una variable para almacenar el valor recibido por UART
-uint32_t matchMotor1 = 0, matchMotor2 = 0, matchMotor3 = 0, matchMotor4 = 0;//Se decalran las variables en las que vamos a cargar un valor para hacer MATCH para cada servo
+uint32_t matchMotor1 = 0, matchMotor2 = 0, \
+		 matchMotor3 = 0, matchMotor4 = 0;								//Se decalran las variables en las que vamos a cargar un valor para hacer MATCH para cada servo
 uint8_t contador = 0;													//Se declara un contador para abrir la pinza si está cerrada por un error de pulsación
 
 //Programa principal
