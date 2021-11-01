@@ -64,16 +64,19 @@ int main()
 			soltar();													//Se llama a la funcion void soltar()
 			centrar3();													//Se llama a la funcion void centrar3()
 			contador = 0;												//Se setea en 0 la varible que indica ingreso previo
+			info[0] = "";
 		}
 		else if(info[0] == '2')											//Se verifica si se pulso el botón IZQUIERDA
 		{
 			izquierda();												//Se llama a la funcion void izquierda()
 			centrar2();													//Se llama a la funcion void centrar2()
+			info[0] = "";
 		}
 		else if(info[0] == '3')											//Se verifica si se pulso el botón DERECHA
 		{
 			derecha();													//Se llama a la funcion void derecha()
 			centrar2();													//Se llama a la funcion void centrar2()
+			info[0] = "";
 		}
 	}
 
