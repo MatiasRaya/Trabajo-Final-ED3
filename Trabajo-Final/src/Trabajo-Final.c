@@ -57,26 +57,26 @@ int main()
 				centrar3();												//Se llama a la funcion void centrar3()
 				contador = 0;											//Se setea en 0 la varible que indica ingreso previo
 			}
-			info[0] = "";
+			info[0] = "";												//Se limpia en el vector, la posicion donde se almacena el valor recibido por UART
 		}
 		else if(info[0] == '1')											//Se verifica si se pulso el botón SOLTAR
 		{
 			soltar();													//Se llama a la funcion void soltar()
 			centrar3();													//Se llama a la funcion void centrar3()
 			contador = 0;												//Se setea en 0 la varible que indica ingreso previo
-			info[0] = "";
+			info[0] = "";												//Se limpia en el vector, la posicion donde se almacena el valor recibido por UART
 		}
 		else if(info[0] == '2')											//Se verifica si se pulso el botón IZQUIERDA
 		{
 			izquierda();												//Se llama a la funcion void izquierda()
 			centrar2();													//Se llama a la funcion void centrar2()
-			info[0] = "";
+			info[0] = "";												//Se limpia en el vector, la posicion donde se almacena el valor recibido por UART
 		}
 		else if(info[0] == '3')											//Se verifica si se pulso el botón DERECHA
 		{
 			derecha();													//Se llama a la funcion void derecha()
 			centrar2();													//Se llama a la funcion void centrar2()
-			info[0] = "";
+			info[0] = "";												//Se limpia en el vector, la posicion donde se almacena el valor recibido por UART
 		}
 	}
 
