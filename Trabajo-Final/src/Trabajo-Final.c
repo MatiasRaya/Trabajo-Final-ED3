@@ -42,43 +42,7 @@ int main()
 	configPWM();														//Se llama a la funcion void configPWM() para configurar el control PWM de los servos
 	configEXTINT();														//Se llama a la funcion void configEXTINT() para configurar las interrupciones provocadas por los pulsadores
 
-    while(1) 
-	{
-		if((info[0] == '0'))											//Se verifica si se pulso el botón AGARRAR
-		{
-			if( contador == 0)											//Se verifica si se ingreso previamente a la funcion
-			{
-				agarrar();												//Se llama a la funcion void agarrar()
-				centrar2();												//Se llama a la funcion void centrar2()
-				contador = 1;											//Se setea en 1 la varible que indica ingreso previo
-			}
-			else if(contador == 1)
-			{
-				centrar3();												//Se llama a la funcion void centrar3()
-				contador = 0;											//Se setea en 0 la varible que indica ingreso previo
-			}
-			info[0] = "";												//Se limpia en el vector, la posicion donde se almacena el valor recibido por UART
-		}
-		else if(info[0] == '1')											//Se verifica si se pulso el botón SOLTAR
-		{
-			soltar();													//Se llama a la funcion void soltar()
-			centrar3();													//Se llama a la funcion void centrar3()
-			contador = 0;												//Se setea en 0 la varible que indica ingreso previo
-			info[0] = "";												//Se limpia en el vector, la posicion donde se almacena el valor recibido por UART
-		}
-		else if(info[0] == '2')											//Se verifica si se pulso el botón IZQUIERDA
-		{
-			izquierda();												//Se llama a la funcion void izquierda()
-			centrar2();													//Se llama a la funcion void centrar2()
-			info[0] = "";												//Se limpia en el vector, la posicion donde se almacena el valor recibido por UART
-		}
-		else if(info[0] == '3')											//Se verifica si se pulso el botón DERECHA
-		{
-			derecha();													//Se llama a la funcion void derecha()
-			centrar2();													//Se llama a la funcion void centrar2()
-			info[0] = "";												//Se limpia en el vector, la posicion donde se almacena el valor recibido por UART
-		}
-	}
+    while(1){}
 
     return 0;
 }
@@ -164,9 +128,41 @@ void UART0_IRQHandler()
 			while(1){}													//En caso de ser afirmativo, se entra en bucle infinito
 		}
 	}
+	
 	if((temp0 == UART_IIR_INTID_RDA) || (temp0 == UART_IIR_INTID_CTI))	//Se verifica si recibi informacion o si fue un caracter fuera de tiempo
 	{
 		UART_Receive(LPC_UART0, info, sizeof(info),NONE_BLOCKING);		//En caso de ser afirmativo, se indica donde almaceno el valor recibido por RX de UART
+	}
+	
+	if((info[0] == '0'))											//Se verifica si se pulso el botón AGARRAR
+	{
+		if( contador == 0)											//Se verifica si se ingreso previamente a la funcion
+		{
+			agarrar();												//Se llama a la funcion void agarrar()
+			centrar2();												//Se llama a la funcion void centrar2()
+			contador = 1;											//Se setea en 1 la varible que indica ingreso previo
+		}
+		else if(contador == 1)
+		{
+			centrar3();												//Se llama a la funcion void centrar3()
+			contador = 0;											//Se setea en 0 la varible que indica ingreso previo
+		}
+	}
+	else if(info[0] == '1')											//Se verifica si se pulso el botón SOLTAR
+	{
+		soltar();													//Se llama a la funcion void soltar()
+		centrar3();													//Se llama a la funcion void centrar3()
+		contador = 0;												//Se setea en 0 la varible que indica ingreso previo
+	}
+	else if(info[0] == '2')											//Se verifica si se pulso el botón IZQUIERDA
+	{
+		izquierda();												//Se llama a la funcion void izquierda()
+		centrar2();													//Se llama a la funcion void centrar2()
+	}
+	else if(info[0] == '3')											//Se verifica si se pulso el botón DERECHA
+	{
+		derecha();													//Se llama a la funcion void derecha()
+		centrar2();													//Se llama a la funcion void centrar2()
 	}
 }
 
