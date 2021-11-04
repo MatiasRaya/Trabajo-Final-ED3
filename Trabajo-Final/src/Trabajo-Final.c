@@ -4,10 +4,8 @@
 //Librerias de drivers
 #include "lpc17xx_pinsel.h"
 #include "lpc17xx_pwm.h"
-#include "lpc17xx_timer.h"
 #include "lpc17xx_uart.h"
 #include "lpc17xx_exti.h"
-#include "lpc17xx_gpio.h"
 
 //Funciones de configuracion de las funciones
 void configPin();
