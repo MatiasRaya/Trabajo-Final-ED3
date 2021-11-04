@@ -285,7 +285,7 @@ void agarrar()
 {
 	matchMotor1 = 1600;													//Se indica el valor para el MATCH1 del servo 1
 	matchMotor2 = 200;													//Se indica el valor para el MATCH2 del servo 2
-	matchMotor3 = 1250;													//Se indica el valor para el MATCH3 del servo 3
+	matchMotor3 = 1200;													//Se indica el valor para el MATCH3 del servo 3
 	matchMotor4 = 400;													//Se indica el valor para el MATCH4 del servo 4
 
 	PWM_MatchUpdate(LPC_PWM1,1,matchMotor1,PWM_MATCH_UPDATE_NOW);		//Se actualiza el valor del MATCH1, el cual corresponde al servo 1
@@ -303,7 +303,7 @@ void agarrar()
 void soltar()
 {
 	matchMotor2 = 200;													//Se indica el valor para el MATCH2 del servo 2
-	matchMotor3 = 1250;													//Se indica el valor para el MATCH3 del servo 3
+	matchMotor3 = 1200;													//Se indica el valor para el MATCH3 del servo 3
 	matchMotor4 = 800;													//Se indica el valor para el MATCH4 del servo 4
 	//No se instancia el servo 1 ya que este no presenta movimiento en esta funcion
 
@@ -320,7 +320,7 @@ void soltar()
 
 void derecha()
 {
-	matchMotor1 = 2300;													//Se indica el valor para el MATCH1 del servo 1
+	matchMotor1 = 2100;													//Se indica el valor para el MATCH1 del servo 1
 	//No se instancia el servo 2 ya que este no presenta movimiento en esta funcion
 	//No se instancia el servo 3 ya que este no presenta movimiento en esta funcion
 	//No se instancia el servo 4 ya que este no presenta movimiento en esta funcion
@@ -336,7 +336,7 @@ void derecha()
 
 void izquierda()
 {
-	matchMotor1 = 900;													//Se indica el valor para el MATCH1 del servo 1
+	matchMotor1 = 1100;													//Se indica el valor para el MATCH1 del servo 1
 	//No se instancia el servo 2 ya que este no presenta movimiento en esta funcion
 	//No se instancia el servo 3 ya que este no presenta movimiento en esta funcion
 	//No se instancia el servo 4 ya que este no presenta movimiento en esta funcion
@@ -352,7 +352,7 @@ void izquierda()
 
 void centrar2()
 {
-	matchMotor2 = 400;													//Se indica el valor para el MATCH2 del servo 2
+	matchMotor2 = 250;													//Se indica el valor para el MATCH2 del servo 2
 	matchMotor3 = 700;													//Se indica el valor para el MATCH4 del servo 3
 	//No se instancia el servo 1 ya que este no presenta movimiento en esta funcion
 	//No se instancia el servo 4 ya que este no presenta movimiento en esta funcion
@@ -370,7 +370,7 @@ void centrar2()
 void centrar3()
 {
 	matchMotor1 = 1600;													//Se indica el valor para el MATCH1 del servo 1
-	matchMotor2 = 400;													//Se indica el valor para el MATCH2 del servo 2
+	matchMotor2 = 250;													//Se indica el valor para el MATCH2 del servo 2
 	matchMotor3 = 700;													//Se indica el valor para el MATCH3 del servo 3
 	matchMotor4 = 800;													//Se indica el valor para el MATCH4 del servo 4
 
